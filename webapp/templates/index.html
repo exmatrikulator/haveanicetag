@@ -5,26 +5,49 @@
 {% block content %}
 
 <h1>Search</h1>
-<table>
-{% for record in records %}
-  {% if loop.index == 1 %}
-    <tr>
-      {% for attr in record.__dict__.keys() %}
-        {% if( attr != '_sa_instance_state') %}
-          <th>{{ attr }}</th>
-        {% endif %}
-      {% endfor %}
-    </tr>
-  {% endif %}
 
+<form action="/save" method="GET">
+{% for tag in tags %}
+  <input type="hidden" name="tag" value="{{tag}}">
+  <input type="hidden" name="tags" value="{{tag}}">
+  <span class="btn btn-primary removetag">{{tag}}</span> +
+{% endfor %}
+Tag <input type="text" size="50" name="tag" id="tag">
+ = Value <input type="text" name="value" value="{{current_data.value}}">
+<input type="submit" value="save" class="btn btn-default">
+{%if current_data.id %}
+  <input type="hidden" name="dataid" id="dataid" value="{{current_data.id}}">
+  <input type="submit" value="delete" class="btn btn-danger" id="btndelete">
+  {%if current_data.comment and current_data.source%}
+    <small>(<a href="{{current_data.source}}">{{current_data.comment}}</a>)</small>
+  {%elif current_data.comment %}
+    <small>({{current_data.comment}})</small>
+  {%endif%}
+{%endif%}
+</form>
+<br/>
+<span id="result" >
+  {% for tag in possible_tags %}
+    <a class='btn btn-info taglink' role='button'>{{tag}}</a>
+  {% endfor %}
+</span>
+<br/>
+<br/>
+
+<table class="table table-bordered table-hover">
   <tr>
-    {% for attr in record.__dict__.keys() %}
-      {% if( attr != '_sa_instance_state') %}
-        <td>{{ record[attr] }}</td>
-      {% endif %}
-    {% endfor %}
+    <th>Tags</th>
+    <th>Values</th>
   </tr>
-
+{% for record in records %}
+  <tr>
+    <td class="tagslink">
+    {% for tag in record['tags'] %}
+      <a class='btn btn-info btn-xs taglink' role='button'>{{ tag }}</a>
+    {% endfor %}
+    </td>
+    <td>{{ record['value'] }}</td>
+  </tr>
 {% endfor %}
 </table>
 

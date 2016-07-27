@@ -1,13 +1,26 @@
 #!/usr/bin/env python
 # coding: utf8
+## @file manager
+
 import os
 from flask_script import Manager, Server
 from flask_assets import ManageAssets
 from webapp.models import Tag
-from webapp import app
+from webapp import app,assets_env
+
 
 manager = Manager(app)
+manager.add_command("assets", ManageAssets(assets_env))
 manager.add_command("runserver", Server())
+
+## start the tests
+@manager.command
+def runtest():
+    import unittest
+    from test import TestUtilMethods
+    #unittest.main()
+    suite = unittest.defaultTestLoader.loadTestsFromTestCase(TestUtilMethods)
+    unittest.TextTestRunner().run(suite)
 
 
 @manager.command

@@ -12,8 +12,11 @@ TagRelation = db.Table('TagRelation', db.metadata,
 ## Stores all Tag Names
 class Tag(db.Model):
     __tablename__ = "tag"
+    ## The primary Key
     id = db.Column(db.Integer, primary_key=True)
+    ## The displayed Name
     name = db.Column(db.String(32), unique=True)
+    #tags = db.relationship(Data, secondary=TagRelation,  backref="tags")
 
     def __init__(self, name):
         self.name = name
@@ -21,10 +24,19 @@ class Tag(db.Model):
         return self.name
 
 
-## Stores all User Accounts / logins
+## Stores all (Meta) Data
 class Data(db.Model):
     __tablename__ = "data"
+    ## The primary Key
     id = db.Column(db.Integer, primary_key=True)
-    tags = db.relationship("Tag", secondary=TagRelation,  backref=db.backref('datas', lazy='dynamic'))
+    ##relationship to Tags
+    tags = db.relationship(Tag, secondary=TagRelation, backref=db.backref('dates'))
+    ## The Value of the Data
     value = db.Column(db.String)
+    ## Just a free Comment
+    comment = db.Column(db.String)
+    ## A Hyperlink to the Source of the Vlaue
+    source = db.Column(db.String)
+    ## last edit date
+    lastchange = db.Column(db.Date)
     db.UniqueConstraint('tags', 'value')
