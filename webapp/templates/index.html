@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+
+<h1>Search</h1>
+<table>
+{% for record in records %}
+  {% if loop.index == 1 %}
+    <tr>
+      {% for attr in record.__dict__.keys() %}
+        {% if( attr != '_sa_instance_state') %}
+          <th>{{ attr }}</th>
+        {% endif %}
+      {% endfor %}
+    </tr>
+  {% endif %}
+
+  <tr>
+    {% for attr in record.__dict__.keys() %}
+      {% if( attr != '_sa_instance_state') %}
+        <td>{{ record[attr] }}</td>
+      {% endif %}
+    {% endfor %}
+  </tr>
+
+{% endfor %}
+</table>
+
+{% endblock %}

@@ -1,0 +1,7 @@
+Flask
+Flask-SqlAlchemy
+Flask-wtf
+Flask-Assets
+Flask-Script
+flask_errormail
+WTForms
