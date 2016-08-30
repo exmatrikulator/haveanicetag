@@ -1,18 +1,20 @@
+# Have a nice Tag
+
 Not a key-value, but a tag-value database.  
 Store information tag based. A combination of tags will get you a value.
 
 **For example**
 
-"Release 1" = "working"  
-"Release 1" + "Android" = "working"  
+"Release 1" = "stable"  
+"Release 1" + "Android" = "stable"  
 "Release 1" + "Android" + "Mobile Foo" = "not working"  
 "Release 1" + "Android" + "Mobile Bar" = "not tested"  
 "Release 2" = "testing"
 
 
-# Install
+## Install
 
-## Linux
+### Linux
 
 ```
 virtualenv venv -p python3
@@ -23,7 +25,7 @@ cp config.py.example config.py
 ./manage.py runserver
 ```
 
-## Windows
+### Windows
 
 ```
 virtualenv venv -p python3
