@@ -32,13 +32,6 @@ def createdb():
         db.drop_all()
     db.create_all()
     db.session.commit()
-    #
-    # try:
-    #     db.session.add( Region( name = "Wuppertal" ) )
-    #     db.session.commit()
-    # except:
-    #     db.session.rollback()
-    #
 
 
 if __name__ == "__main__":
