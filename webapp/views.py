@@ -3,7 +3,7 @@
 
 import os
 import re
-from flask import request, redirect, render_template, jsonify
+from flask import request, redirect, render_template, jsonify, send_from_directory
 from sqlalchemy.orm import joinedload, load_only
 from webapp import app, db
 from webapp.util import *
@@ -60,3 +60,10 @@ def get_tags():
         output = get_tagList_by_search( request.args.get('tag') )
     #print( output  )
     return jsonify(tags=output)
+
+
+## Route /doc
+# shows the documentation, if available
+@app.route('/doc/<path:path>')
+def show_doc(path):
+    return send_from_directory('../docs/html/', path)
